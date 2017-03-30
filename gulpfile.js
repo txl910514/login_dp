@@ -60,6 +60,18 @@ var gulp = require('gulp'),
 			}))
 			.pipe(gulp.dest("./rev"));
 	};
+if (yargs.pub) {
+	switch (yargs.pub) {
+		// 正式环境
+		case "url":
+			pathConfig.dist = 'login_release/';
+			break;
+		//测试环境
+		case "test":
+			pathConfig.dist = 'login_test/';
+			break;
+	}
+};
 var condition = function (file) {
 	// TODO: add business logic
 	var file_path = file.history[0].replace(file.cwd+'/', '');
@@ -108,12 +120,10 @@ gulp.task('setValue', function () {
 				img = true;
 				js = true;
 				api = require('./url.json');
-				pathConfig.dist = 'login_release/';
 				break;
 				//测试环境
 			case "test":
 				api = require('./testurl.json');
-				pathConfig.dist = 'login_test/';
 				break;
 		}
 	};
