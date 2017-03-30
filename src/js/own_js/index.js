@@ -11,6 +11,7 @@ var index = {
         $('.hospital-content').html('');
         $('.no-data-position').css('display', 'none');
         if (verify === 'login') {
+            document.title = '选择医院';
             var hospital_url = '<%=server_url%>/dp/hos/get';
             token = self.getCookie('token');
             user_id = self.getCookie('user_id');
