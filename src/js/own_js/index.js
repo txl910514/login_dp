@@ -16,6 +16,7 @@ var index = {
             self.dp_get( hospital_url,{ user_id: user_id }, '', function(result) {
                 if (result.success) {
                     _.each(result.data, function(index) {
+                        index.href_url = "<%=page_url%><%=cookie_path%>/";
                         var hospital_list_tpl = self.hospital_list_tpl(index);
                         $('.hospital-content').append(hospital_list_tpl);
                     });
