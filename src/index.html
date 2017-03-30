@@ -22,9 +22,20 @@
 <div class="select-bg position-absolute">
     <div class="hospital-content-auto">
         <div class="hospital-content display-middle">
+
         </div>
     </div>
-
+    <div class="no-data-position position-absolute" style="display: none">
+        <div class="table">
+            <div class="table-cell">
+                <div class="no-data">
+                    <div class="line1">抱歉！</div>
+                    <div class="line2">该医院尚未开通大屏功能，或您的账号未关联医院</div>
+                    <div class="line3">如有疑问，请联系数联医信 ( 400 - 9637626 )</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script type="text/html" id="hospital_list_tpl">
     <a href="<%- href_url %>" class="hospital-select-a" id="<%- id %>" data-name="<%- nameChinese %>">

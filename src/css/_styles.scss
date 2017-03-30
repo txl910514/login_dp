@@ -21,6 +21,13 @@ div{
   right: 0;
   bottom: 0;
 }
+.table{
+  display: table;
+  .table-cell{
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
 
 //选择医院页面
 .select-bg {
@@ -31,6 +38,35 @@ div{
   overflow: hidden;
   padding: 2*$padding20 0;
   text-align: center;
+  .no-data-position {
+    overflow: hidden;
+    z-index: 9;
+    .table{
+      width: 100%;
+      height: 100%;
+      .table-cell{
+        .no-data {
+          font-size: $fs14;
+          display: inline-block;
+          background: rgba(255,255,255,.1);
+          padding: 2*$padding20 3*$padding20;
+          color: $color3;
+          .line1 {
+            font-size: 240%;
+          }
+          .line2 {
+            font-size: 160%;
+            margin-top: 2%;
+          }
+          .line3 {
+            font-size: 128%;
+            color: rgba(255,255,255,.3);
+            margin-top: 5%;
+          }
+        }
+      }
+    }
+  }
   .hospital-content-auto {
     overflow: hidden;
     overflow-y: auto;

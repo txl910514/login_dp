@@ -9,20 +9,26 @@ var index = {
         var url = '<%=server_url%>/dp/hos/';
         var verify = self.search_location('verify');
         $('.hospital-content').html('');
+        $('.no-data-position').css('display', 'none');
         if (verify === 'login') {
             var hospital_url = '<%=server_url%>/dp/hos/get';
             token = self.getCookie('token');
             user_id = self.getCookie('user_id');
             self.dp_get( hospital_url,{ user_id: user_id }, '', function(result) {
                 if (result.success) {
-                    _.each(result.data, function(index) {
-                        index.href_url = "<%=page_url%><%=cookie_path%>/";
-                        var hospital_list_tpl = self.hospital_list_tpl(index);
-                        $('.hospital-content').append(hospital_list_tpl);
-                    });
-                    if (result.data.length === 1) {
-                        self.hospital_list_focus($('.hospital-select-a').first());
-                        window.location.href = "<%=page_url%><%=cookie_path%>/";
+                    if (result.data.length) {
+                        _.each(result.data, function(index) {
+                            index.href_url = "<%=page_url%><%=cookie_path%>/";
+                            var hospital_list_tpl = self.hospital_list_tpl(index);
+                            $('.hospital-content').append(hospital_list_tpl);
+                        });
+                        if (result.data.length === 1) {
+                            self.hospital_list_focus($('.hospital-select-a').first());
+                            window.location.href = "<%=page_url%><%=cookie_path%>/";
+                        }
+                    }
+                    else {
+                        $('.no-data-position').css('display', 'block');
                     }
                 }
             });
@@ -39,12 +45,22 @@ var index = {
         var self = this;
         var id = $obj.attr('id');
         var name = $obj.data('name');
+        var url = '<%=server_url%>/login/insert';
         token = self.getCookie('token');
         user_id = self.getCookie('user_id');
-        self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
+        self.dp_post( url,{
+            userId:user_id,
+            hosId:id,
+            hosName:name,
+            token:token
+        }, function(result) {
+            if (result.success) {
+            }
+        });
+        //self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
         self.setCookie('hospital_id', id, '<%=cookie_path%>', '<%=cookie_ip%>');
-        self.setCookie('token', token, '<%=cookie_path%>', '<%=cookie_ip%>');
-        self.setCookie('user_id', user_id, '<%=cookie_path%>', '<%=cookie_ip%>');
+        //self.setCookie('token', token, '<%=cookie_path%>', '<%=cookie_ip%>');
+        //self.setCookie('user_id', user_id, '<%=cookie_path%>', '<%=cookie_ip%>');
     },
 
     search_location: function(key) {
@@ -97,6 +113,39 @@ var index = {
                     callback(json);
                 }
                 dataType = null;
+            },
+            error: function(xhr, msg, error){
+                console.log(xhr);
+                console.log(error);
+                console.log(msg);
+            },
+            complete: function(XHR, TS) {
+                XHR = null;
+            }
+        })
+    },
+
+    dp_post: function(url, data, callback) {
+        $.ajax({
+            url:url,
+            type: 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            dataType: 'json',
+            contentType:'application/json',
+            data:JSON.stringify(data),
+            success: function(json) {
+                if(!json.success) {
+                    if (json.message) {
+                        window.location.href = json.message;
+                    }
+                    return false;
+                }
+                if(typeof callback === 'function') {
+                    callback(json);
+                }
             },
             error: function(xhr, msg, error){
                 console.log(xhr);
