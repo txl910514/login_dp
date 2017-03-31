@@ -5,6 +5,7 @@ html, body{
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 div{
   box-sizing: border-box;
@@ -45,6 +46,7 @@ div{
   height: 100%;
   padding: 2*$padding20 0;
   text-align: center;
+  overflow: hidden;
   .no-data-position {
     overflow: hidden;
     z-index: 9;
@@ -77,6 +79,8 @@ div{
   .hospital-content-auto {
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    overflow-y:auto;
     .hospital-content {
       .hospital-select-a {
         color: $color6;
