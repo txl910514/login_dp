@@ -5,8 +5,6 @@ html, body{
   height: 100%;
   margin: 0;
   padding: 0;
-  background: url("../images/select_bg.jpg") no-repeat 0% 0%;
-  background-size:cover;
 }
 div{
   box-sizing: border-box;
@@ -31,6 +29,16 @@ div{
 }
 
 //选择医院页面
+.login_bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  background: url("../images/select_bg.jpg") no-repeat 0% 0%;
+  background-size:cover;
+}
 .select-bg {
 
   width: 100%;
@@ -91,6 +99,7 @@ div{
           }
           .hospital-text {
             padding: $padding10 4*$padding20 $padding10 $padding10;
+            text-align: left;
           }
         }
         &:focus {
