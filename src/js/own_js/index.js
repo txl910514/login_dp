@@ -11,6 +11,7 @@ var index = {
         $('.hospital-content').html('');
         $('.no-data-position').css('display', 'none');
         if (verify === 'login') {
+            //self.setCookie('user_id', 3833,  location.pathname, location.hostname);
             document.title = '选择医院';
             var hospital_url = '<%=server_url%>/dp/hos/get';
             token = self.getCookie('token');
@@ -56,9 +57,10 @@ var index = {
             token:token
         }, function(result) {
             if (result.success) {
+                window.location.href = "<%=page_url%><%=cookie_path%>/";
             }
         });
-        //self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
+        self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
         self.setCookie('hospital_id', id, '<%=cookie_path%>', '<%=cookie_ip%>');
         //self.setCookie('token', token, '<%=cookie_path%>', '<%=cookie_ip%>');
         //self.setCookie('user_id', user_id, '<%=cookie_path%>', '<%=cookie_ip%>');
