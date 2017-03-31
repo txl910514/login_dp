@@ -6,14 +6,14 @@ var index = {
     hospital_list_tpl: _.template($('#hospital_list_tpl').html()),
     ready_init: function() {
         var self = this;
-        var url = '<%=server_url%>/dp/hos/';
+        var url = '<%=server_url%>/hos/';
         var verify = self.search_location('verify');
         $('.hospital-content').html('');
         $('.no-data-position').css('display', 'none');
         if (verify === 'login') {
             //self.setCookie('user_id', 3833,  location.pathname, location.hostname);
             document.title = '选择医院';
-            var hospital_url = '<%=server_url%>/dp/hos/get';
+            var hospital_url = '<%=server_url%>/hos/get';
             token = self.getCookie('token');
             user_id = self.getCookie('user_id');
             self.dp_get( hospital_url,{ user_id: user_id }, '', function(result) {
