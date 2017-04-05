@@ -26,7 +26,6 @@ var index = {
                         });
                         if (result.data.length === 1) {
                             self.hospital_list_focus($('.hospital-select-a').first());
-                            window.location.href = "<%=page_url%><%=cookie_path%>/";
                         }
                     }
                     else {
