@@ -1,7 +1,7 @@
 /**
  * Created by txl91 on 2017/1/18.
  */
-var token, user_id;
+var token, user_id, version_time, get_time_stamp;
 var index = {
     hospital_list_tpl: _.template($('#hospital_list_tpl').html()),
     ready_init: function() {
@@ -57,7 +57,9 @@ var index = {
             token:token
         }, function(result) {
             if (result.success) {
-                window.location.href = "<%=page_url%><%=cookie_path%>/";
+                version_time = new Date();
+                get_time_stamp = version_time.getTime();
+                window.location.href = "<%=page_url%><%=cookie_path%>/" + "?time_stamp="+ get_time_stamp;
             }
         });
         self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
