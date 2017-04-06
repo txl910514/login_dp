@@ -20,7 +20,7 @@ var index = {
                 if (result.success) {
                     if (result.data.length) {
                         _.each(result.data, function(index) {
-                            index.href_url = "<%=page_url%><%=cookie_path%>/";
+                            index.href_url = "<%=page_url%><%=cookie_path%>";
                             var hospital_list_tpl = self.hospital_list_tpl(index);
                             $('.hospital-content').append(hospital_list_tpl);
                         });
@@ -58,7 +58,7 @@ var index = {
             if (result.success) {
                 version_time = new Date();
                 get_time_stamp = version_time.getTime();
-                window.location.href = "<%=page_url%><%=cookie_path%>/";
+                window.location.href = "<%=page_url%><%=cookie_path%>";
             }
         });
         self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
