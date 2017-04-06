@@ -58,7 +58,7 @@ var index = {
             if (result.success) {
                 version_time = new Date();
                 get_time_stamp = version_time.getTime();
-                window.location.assign("<%=page_url%><%=cookie_path%>/" + "?time_stamp="+ get_time_stamp);
+                window.location.href = "<%=page_url%><%=cookie_path%>/";
             }
         });
         self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
