@@ -64,7 +64,7 @@ if (yargs.pub) {
 	switch (yargs.pub) {
 		// 正式环境
 		case "url":
-			pathConfig.dist = 'login_release/';
+			pathConfig.dist = 'login_dp/';
 			break;
 		//测试环境
 		case "test":
