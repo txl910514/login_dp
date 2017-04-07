@@ -55,11 +55,9 @@ var index = {
             hosName:name,
             token:token
         }, function(result) {
-            if (result.success) {
-                version_time = new Date();
-                get_time_stamp = version_time.getTime();
-                window.location.assign("<%=page_url%><%=cookie_path%>" + "?time_stamp="+ get_time_stamp);
-            }
+            version_time = new Date();
+            get_time_stamp = version_time.getTime();
+            window.location.assign("<%=page_url%><%=cookie_path%>" + "?time_stamp="+ get_time_stamp);
         });
         self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
         self.setCookie('hospital_id', id, '<%=cookie_path%>', '<%=cookie_ip%>');
