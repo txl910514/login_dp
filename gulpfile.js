@@ -27,7 +27,6 @@ var gulp = require('gulp'),
 	Q = require('q'),
 	del = require('del'),
 	pathConfig = {
-		dist: 'dp_test/',
 		src: 'src/',
 		rev: 'rev'
 	},
@@ -68,7 +67,7 @@ if (yargs.pub) {
 			break;
 		//测试环境
 		case "test":
-			pathConfig.dist = 'login_test/';
+			pathConfig.dist = 'login_dp/';
 			break;
 	}
 };
