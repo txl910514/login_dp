@@ -1,6 +1,6 @@
 {
-    "page_url": "http://121.42.252.26:8081",
-    "server_url": "http://121.42.252.26:8081",
-    "cookie_ip":"121.42.252.26",
-    "cookie_path":"/hos_dp/"
+    "page_url": "https://linda.medatc.com",
+    "server_url": "https://linda.medatc.com/dp/",
+    "cookie_ip":"linda.medatc.com",
+    "cookie_path":"/dp/hos_dp/"
 }
