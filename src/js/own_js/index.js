@@ -29,8 +29,13 @@ var index = {
                         }
                     }
                     else {
+                        $('.no-data-position').find('.line2').text('该医院尚未开通大屏功能，或您的账号未关联医院');
                         $('.no-data-position').css('display', 'block');
                     }
+                }
+                else {
+                    $('.no-data-position').find('.line2').text('出错啦！');
+                    $('.no-data-position').css('display', 'block');
                 }
             });
         }
