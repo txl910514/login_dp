@@ -113,8 +113,8 @@ var index = {
                 if(!json.success) {
                     if (json.message) {
                         window.location.href = json.message;
+                        return false;
                     }
-                    return false;
                 }
                 if(typeof callback === 'function') {
                     callback(json);
@@ -147,8 +147,8 @@ var index = {
                 if(!json.success) {
                     if (json.message) {
                         window.location.href = json.message;
+                        return false;
                     }
-                    return false;
                 }
                 if(typeof callback === 'function') {
                     callback(json);
