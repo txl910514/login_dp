@@ -1,7 +1,7 @@
 /**
  * Created by txl91 on 2017/1/18.
  */
-var token, user_id, version_time, get_time_stamp, hospital_name, hospital_id;
+var token, user_id, version_time, get_time_stamp, hospital_name, hospital_id, days = 0.005;
 var index = {
     hospital_list_tpl: _.template($('#hospital_list_tpl').html()),
     ready_init: function() {
@@ -11,7 +11,7 @@ var index = {
         $('.hospital-content').html('');
         $('.no-data-position').css('display', 'none');
         if (verify === 'login') {
-            self.setCookie('user_id', 2920,  location.pathname, location.hostname);
+            // self.setCookie('user_id', 2920,  location.pathname, location.hostname);
             document.title = '选择医院';
             var hospital_url = '<%=server_url%>/hos/get';
             token = self.getCookie('token');
@@ -77,8 +77,8 @@ var index = {
         self.transmit_login(url, user_id, id, name, token);
         self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
         self.setCookie('hospital_id', id, '<%=cookie_path%>', '<%=cookie_ip%>');
-        self.setCookie('hospital_id', id, location.pathname, location.hostname);
-        self.setCookie('hospital_name', name, location.pathname, location.hostname);
+        self.setCookie('hospital_id', id, location.pathname, location.hostname, days);
+        self.setCookie('hospital_name', name, location.pathname, location.hostname, days);
         //self.setCookie('token', token, '<%=cookie_path%>', '<%=cookie_ip%>');
         //self.setCookie('user_id', user_id, '<%=cookie_path%>', '<%=cookie_ip%>');
     },
@@ -101,12 +101,15 @@ var index = {
         return decodeURI(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURI(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
     },
 
-    setCookie: function(name, value, path, domain) {
-        var Days = 0.005;
-        var exp = new Date();
-        exp.setTime(exp.getTime() + Days*24*60*60*1000);
-        // document.cookie = name + "="+ escape (value) + ";expires=" + (-1) + ";path="+ path +";domain=" +domain;
-        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString() + ";path="+ path +";domain=" +domain;
+    setCookie: function(name, value, path, domain, Days) {
+        if (Days) {
+          var exp = new Date();
+          exp.setTime(exp.getTime() + Days*24*60*60*1000);
+          document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString() + ";path="+ path +";domain=" +domain;
+        }
+        else {
+          document.cookie = name + "="+ escape (value) + ";expires=" + (-1) + ";path="+ path +";domain=" +domain;
+        }
     },
 
     getCookie: function(name) {
