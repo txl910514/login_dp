@@ -1,7 +1,7 @@
 /**
  * Created by txl91 on 2017/1/18.
  */
-var token, user_id, version_time, get_time_stamp;
+var token, user_id, version_time, get_time_stamp, hospital_name, hospital_id;
 var index = {
     hospital_list_tpl: _.template($('#hospital_list_tpl').html()),
     ready_init: function() {
@@ -11,7 +11,7 @@ var index = {
         $('.hospital-content').html('');
         $('.no-data-position').css('display', 'none');
         if (verify === 'login') {
-            //self.setCookie('user_id', 3833,  location.pathname, location.hostname);
+            // self.setCookie('user_id', 2920,  location.pathname, location.hostname);
             document.title = '选择医院';
             var hospital_url = '<%=server_url%>/hos/get';
             token = self.getCookie('token');
@@ -40,10 +40,30 @@ var index = {
             });
         }
         else {
+          token = self.getCookie('token') || '';
+          user_id = self.getCookie('user_id');
+          hospital_name = self.getCookie('hospital_name');
+          hospital_id = self.getCookie('hospital_id') || '';
+          if (hospital_id) {
+              if(token && user_id) {
+                var login_url = '<%=server_url%>/login/insert';
+                self.setCookie('hospital_name', hospital_name, '<%=cookie_path%>', '<%=cookie_ip%>');
+                self.setCookie('hospital_id', hospital_id, '<%=cookie_path%>', '<%=cookie_ip%>');
+                self.transmit_login(login_url, user_id, hospital_id, hospital_name, token)
+              }
+              else {
+                self.dp_get( url,{}, '', function(result) {
+                  if (result.success) {
+                  }
+                });
+              }
+          }
+          else {
             self.dp_get( url,{}, '', function(result) {
-                if (result.success) {
-                }
+              if (result.success) {
+              }
             });
+          }
         }
     },
 
@@ -54,20 +74,27 @@ var index = {
         var url = '<%=server_url%>/login/insert';
         token = self.getCookie('token');
         user_id = self.getCookie('user_id');
-        self.dp_post( url,{
-            userId:user_id,
-            hosId:id,
-            hosName:name,
-            token:token
-        }, function(result) {
-            version_time = new Date();
-            get_time_stamp = version_time.getTime();
-            window.location.assign("<%=page_url%><%=cookie_path%>" + "?time_stamp="+ get_time_stamp);
-        });
+        self.transmit_login(url, user_id, id, name, token);
         self.setCookie('hospital_name', name, '<%=cookie_path%>', '<%=cookie_ip%>');
         self.setCookie('hospital_id', id, '<%=cookie_path%>', '<%=cookie_ip%>');
+        self.setCookie('hospital_id', id, location.pathname, location.hostname);
+        self.setCookie('hospital_name', name, location.pathname, location.hostname);
         //self.setCookie('token', token, '<%=cookie_path%>', '<%=cookie_ip%>');
         //self.setCookie('user_id', user_id, '<%=cookie_path%>', '<%=cookie_ip%>');
+    },
+
+    transmit_login: function (url, user_id, id, name, token) {
+      var self = this;
+      self.dp_post( url,{
+        userId:user_id,
+        hosId:id,
+        hosName:name,
+        token:token
+      }, function(result) {
+        version_time = new Date();
+        get_time_stamp = version_time.getTime();
+        window.location.assign("<%=page_url%><%=cookie_path%>" + "?time_stamp="+ get_time_stamp);
+      });
     },
 
     search_location: function(key) {
@@ -75,7 +102,7 @@ var index = {
     },
 
     setCookie: function(name, value, path, domain) {
-        var Days = 30;
+        var Days = 0.01;
         var exp = new Date();
         exp.setTime(exp.getTime() + Days*24*60*60*1000);
         document.cookie = name + "="+ escape (value) + ";expires=" + (-1) + ";path="+ path +";domain=" +domain;
