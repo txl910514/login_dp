@@ -11,7 +11,7 @@ var index = {
         $('.hospital-content').html('');
         $('.no-data-position').css('display', 'none');
         if (verify === 'login') {
-            // self.setCookie('user_id', 2920,  location.pathname, location.hostname);
+            self.setCookie('user_id', 2920,  location.pathname, location.hostname);
             document.title = '选择医院';
             var hospital_url = '<%=server_url%>/hos/get';
             token = self.getCookie('token');
@@ -102,11 +102,11 @@ var index = {
     },
 
     setCookie: function(name, value, path, domain) {
-        var Days = 0.01;
+        var Days = 0.005;
         var exp = new Date();
         exp.setTime(exp.getTime() + Days*24*60*60*1000);
-        document.cookie = name + "="+ escape (value) + ";expires=" + (-1) + ";path="+ path +";domain=" +domain;
-        //document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString() + ";path="+ path +";domain=" +domain;
+        // document.cookie = name + "="+ escape (value) + ";expires=" + (-1) + ";path="+ path +";domain=" +domain;
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString() + ";path="+ path +";domain=" +domain;
     },
 
     getCookie: function(name) {
