@@ -1,7 +1,7 @@
 /**
  * Created by txl91 on 2017/1/18.
  */
-var token, user_id, version_time, get_time_stamp, hospital_name, hospital_id, days = 0.005;
+var token, user_id, version_time, get_time_stamp, hospital_name, hospital_id, days = 7;
 var index = {
     hospital_list_tpl: _.template($('#hospital_list_tpl').html()),
     ready_init: function() {
